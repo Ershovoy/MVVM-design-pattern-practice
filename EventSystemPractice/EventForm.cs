@@ -1,8 +1,8 @@
 namespace EventSystemPractice
 {
-	public partial class Form1 : Form
+	public partial class EventForm : Form
 	{
-		public Form1()
+		public EventForm()
 		{
 			InitializeComponent();
 		}
