@@ -54,6 +54,7 @@
 			this.FullNameTextBox.Name = "FullNameTextBox";
 			this.FullNameTextBox.Size = new System.Drawing.Size(200, 23);
 			this.FullNameTextBox.TabIndex = 1;
+			this.FullNameTextBox.TextChanged += new System.EventHandler(this.FullNameTextBox_TextChanged);
 			// 
 			// PhoneNumberLabel
 			// 
@@ -72,6 +73,7 @@
 			this.PhoneNumberTextBox.Name = "PhoneNumberTextBox";
 			this.PhoneNumberTextBox.Size = new System.Drawing.Size(200, 23);
 			this.PhoneNumberTextBox.TabIndex = 3;
+			this.PhoneNumberTextBox.TextChanged += new System.EventHandler(this.PhoneNumberTextBox_TextChanged);
 			// 
 			// AddressLabel
 			// 
@@ -90,6 +92,7 @@
 			this.AddressTextBox.Name = "AddressTextBox";
 			this.AddressTextBox.Size = new System.Drawing.Size(200, 23);
 			this.AddressTextBox.TabIndex = 5;
+			this.AddressTextBox.TextChanged += new System.EventHandler(this.AddressTextBox_TextChanged);
 			// 
 			// CloseButton
 			// 
@@ -100,6 +103,7 @@
 			this.CloseButton.TabIndex = 6;
 			this.CloseButton.Text = "Close";
 			this.CloseButton.UseVisualStyleBackColor = true;
+			this.CloseButton.Click += new System.EventHandler(this.CloseButton_Click);
 			// 
 			// EventForm
 			// 
@@ -117,6 +121,7 @@
 			this.Name = "EventForm";
 			this.ShowIcon = false;
 			this.Text = "Main Form";
+			this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.EventForm_FormClosing);
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
