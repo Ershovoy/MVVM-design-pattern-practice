@@ -9,6 +9,10 @@ public partial class EventForm : Form
 		get { return _contact; }
 		set
 		{
+			if (_contact is not null)
+			{
+				UnbindContactEvents();
+			}
 			_contact = value;
 			_contact.FullNameChanged    += FullNameChanged;
 			_contact.PhoneNumberChanged += PhoneNumberChanged;
@@ -48,6 +52,13 @@ public partial class EventForm : Form
 		}
 	}
 
+	private void UnbindContactEvents()
+	{
+		Contact.FullNameChanged    -= FullNameChanged;
+		Contact.PhoneNumberChanged -= PhoneNumberChanged;
+		Contact.AddressChanged     -= AddressChanged;
+	}
+
 	private void FullNameTextBox_TextChanged(object sender, EventArgs e)
 	{
 		Contact.FullName = FullNameTextBox.Text;
@@ -65,9 +76,7 @@ public partial class EventForm : Form
 
 	private void EventForm_FormClosing(object sender, FormClosingEventArgs e)
 	{
-		Contact.FullNameChanged    -= FullNameChanged;
-		Contact.PhoneNumberChanged -= PhoneNumberChanged;
-		Contact.AddressChanged     -= AddressChanged;
+		UnbindContactEvents();
 	}
 
 	private void CloseButton_Click(object sender, EventArgs e)
