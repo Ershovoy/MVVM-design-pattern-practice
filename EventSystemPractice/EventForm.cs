@@ -6,12 +6,12 @@ public partial class EventForm : Form
 
 	public Contact Contact
 	{
-		get { return _contact; }
+		get => _contact;
 		set
 		{
 			if (_contact is not null)
 			{
-				UnbindContactEvents();
+				UnsubscribeContactEvents();
 			}
 			_contact = value;
 			_contact.FullNameChanged    += FullNameChanged;
@@ -20,11 +20,11 @@ public partial class EventForm : Form
 		}
 	}
 
-	public EventForm(Contact bindedContact, string formTitle)
+	public EventForm(Contact subscribedContact, string formTitle)
 	{
 		InitializeComponent();
 
-		Contact = bindedContact;
+		Contact = subscribedContact;
 		Text = formTitle;
 	}
 
@@ -52,7 +52,7 @@ public partial class EventForm : Form
 		}
 	}
 
-	private void UnbindContactEvents()
+	private void UnsubscribeContactEvents()
 	{
 		Contact.FullNameChanged    -= FullNameChanged;
 		Contact.PhoneNumberChanged -= PhoneNumberChanged;
@@ -76,7 +76,7 @@ public partial class EventForm : Form
 
 	private void EventForm_FormClosing(object sender, FormClosingEventArgs e)
 	{
-		UnbindContactEvents();
+		UnsubscribeContactEvents();
 	}
 
 	private void CloseButton_Click(object sender, EventArgs e)

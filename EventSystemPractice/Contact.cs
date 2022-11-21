@@ -2,15 +2,15 @@
 
 public class Contact
 {
-	private string _fullName = "";
+	private string _fullName    = "";
 
 	private string _phoneNumber = "";
 
-	private string _address = "";
+	private string _address     = "";
 
 	public string FullName
 	{
-		get { return _fullName; }
+		get => _fullName;
 		set
 		{
 			if (value == _fullName)
@@ -24,10 +24,10 @@ public class Contact
 
 	public string PhoneNumber
 	{
-		get { return _phoneNumber; }
+		get => _phoneNumber;
 		set
 		{
-			if(value == _phoneNumber)
+			if (value == _phoneNumber)
 			{
 				return;
 			}
@@ -38,10 +38,10 @@ public class Contact
 
 	public string Address
 	{
-		get { return _address; }
+		get => _address;
 		set
 		{
-			if(value == _address)
+			if (value == _address)
 			{
 				return;
 			}
