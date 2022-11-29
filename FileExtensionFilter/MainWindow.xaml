@@ -1,12 +1,38 @@
-﻿<Window x:Class="FileExtensionFilter.MainWindow"
+﻿<Window x:Name="window" x:Class="FileExtensionFilter.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:FileExtensionFilter"
+        xmlns:vm="clr-namespace:FileExtensionFilter.ViewModel"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
+        Title="File Extension Filter" Height="480" Width="320">
 
+    <Window.DataContext>
+        <vm:MainViewModel/>
+    </Window.DataContext>
+    
+    <Grid Name="Grid" VerticalAlignment="Top">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="{Binding Height, 
+                                            ElementName=Buttons}"/>
+        </Grid.RowDefinitions>
+        <StackPanel Grid.Row="0">
+            <ListView Name="FilesListView" 
+                      ItemsSource="{Binding FileNames}"
+                      SelectionMode="Single"
+                      MaxHeight="{Binding ActualHeight, 
+                                          ElementName=Grid, 
+                                          Mode=OneWay}"/>
+        </StackPanel>
+        <UniformGrid Name="Buttons" Grid.Row="1" Rows="1" Columns="2">
+            <Button Content="Add File" 
+                    Command="{Binding AddFileCommand}"/>
+            <Button Content="Remove File"
+                    Command="{Binding RemoveFileCommand}"
+                    CommandParameter="{Binding ElementName=FilesListView,
+                                               Path=SelectedIndex}"/>
+        </UniformGrid>
     </Grid>
 </Window>
