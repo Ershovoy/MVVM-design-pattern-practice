@@ -1,5 +1,6 @@
-using FileExtensionFilter.Commands;
+﻿using FileExtensionFilter.Commands;
 using FileExtensionFilter.Model;
+using System;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 
@@ -37,8 +38,26 @@ public class MainViewModel
 		_filenameList.FilenameAdded   += FilenameList_FilenameAdded;
 		_filenameList.FilenameRemoved += FilenameList_FilenameRemoved;
 
-		AddFileCommand    = new AddFileCommand(_filenameList);
-		RemoveFileCommand = new RemoveFileCommand(_filenameList);
+		AddFileCommand = new RelayCommand((object? parameter) =>
+		{
+			var openFileDialog = new Microsoft.Win32.OpenFileDialog();
+
+			bool? result = openFileDialog.ShowDialog();
+			if (result == true)
+			{
+				string filename = openFileDialog.SafeFileName;
+				Filenames.Add(filename);
+			}
+		});
+
+		RemoveFileCommand = new RelayCommand((object? parameter) =>
+		{
+			int index = System.Convert.ToInt32(parameter);
+			if (index != -1)
+			{
+				Filenames.RemoveAt(index);
+			}
+		});
 	}
 
 	/// <summary>
@@ -73,10 +92,10 @@ public class MainViewModel
 	/// <summary>
 	/// Add file command.
 	/// </summary>
-	public ICommand AddFileCommand { get; }
+	public RelayCommand AddFileCommand { get; }
 
 	/// <summary>
 	/// Remove file command.
 	/// </summary>
-	public ICommand RemoveFileCommand { get; }
+	public RelayCommand RemoveFileCommand { get; }
 }
