@@ -1,4 +1,4 @@
-﻿using FileExtensionFilter.Commands;
+using FileExtensionFilter.Commands;
 using FileExtensionFilter.Model;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
@@ -18,15 +18,15 @@ public class MainViewModel
 	/// <summary>
 	/// Representation of filename list for displaying in window.
 	/// </summary>
-	private ObservableCollection<string> _fileNames = new();
+	private ObservableCollection<string> _filenames = new();
 
 	/// <summary>
 	/// Property for filename list.
 	/// </summary>
-	public ObservableCollection<string> FileNames
+	public ObservableCollection<string> Filenames
 	{
-		get { return _fileNames; }
-		set { _fileNames = value; }
+		get => _filenames;
+		set => _filenames = value;
 	}
 
 	/// <summary>
@@ -57,7 +57,7 @@ public class MainViewModel
 	/// <param name="filename">Event argument.</param>
 	private void FilenameList_FilenameAdded(object? sender, string filename)
 	{
-		FileNames.Add(filename);
+		Filenames.Add(filename);
 	}
 
 	/// <summary>
@@ -67,7 +67,7 @@ public class MainViewModel
 	/// <param name="index">Event argument.</param>
 	private void FilenameList_FilenameRemoved(object? sender, int index)
 	{
-		FileNames.RemoveAt(index);
+		Filenames.RemoveAt(index);
 	}
 
 	/// <summary>

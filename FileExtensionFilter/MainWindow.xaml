@@ -20,7 +20,7 @@
         </Grid.RowDefinitions>
         <StackPanel Grid.Row="0">
             <ListView Name="FilesListView" 
-                      ItemsSource="{Binding FileNames}"
+                      ItemsSource="{Binding Filenames}"
                       SelectionMode="Single"
                       MaxHeight="{Binding ActualHeight, 
                                           ElementName=Grid, 
