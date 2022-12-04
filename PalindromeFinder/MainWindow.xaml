@@ -1,12 +1,43 @@
-﻿<Window x:Class="PalindromeFinder.MainWindow"
+﻿<Window x:Name="window" x:Class="PalindromeFinder.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PalindromeFinder"
+        xmlns:vm="clr-namespace:PalindromeFinder.ViewModel"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="480" Width="640">
+    <Window.DataContext>
+        <vm:MainViewModel x:Name="MainViewModel"/>
+    </Window.DataContext>
     <Grid>
-
+        <StackPanel>
+            <ListView Name="PalindromesListView"
+                      SelectionMode="Single"
+                      ItemsSource="{Binding PalindromeList}">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="256"/>
+                                <ColumnDefinition Width="256"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBox Grid.Column="0"
+                                     Text="{Binding Path=Word}"/>
+                            <TextBox Grid.Column="1"
+                                     Text="{Binding Path=WordReverse, Mode=OneWay}"/>
+                        </Grid>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+            <UniformGrid Name="Buttons" Rows="1" Columns="2">
+                <Button Content="Add palindrome" 
+                        Command="{Binding RemovePalindrome}"/>
+                <Button Content="Remove palindrome"
+                        Command="{Binding RemovePalindrome}"
+                        CommandParameter="{Binding SelectedIndex,
+                                                   ElementName=PalindromesListView}"/>
+            </UniformGrid>
+        </StackPanel>
     </Grid>
 </Window>
