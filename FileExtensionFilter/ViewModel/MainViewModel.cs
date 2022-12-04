@@ -12,22 +12,17 @@ namespace FileExtensionFilter.ViewModel;
 public class MainViewModel
 {
 	/// <summary>
-	/// Binded filename list.
-	/// </summary>
-	private FilenameList _filenameList = new();
-
-	/// <summary>
 	/// Representation of filename list for displaying in window.
 	/// </summary>
-	private ObservableCollection<string> _filenames = new();
+	private ObservableCollection<FileInfo> _filesInfo = new();
 
 	/// <summary>
 	/// Property for filename list.
 	/// </summary>
-	public ObservableCollection<string> Filenames
+	public ObservableCollection<FileInfo> FilesInfo
 	{
-		get => _filenames;
-		set => _filenames = value;
+		get => _filesInfo;
+		set => _filesInfo = value;
 	}
 
 	/// <summary>
@@ -35,9 +30,6 @@ public class MainViewModel
 	/// </summary>
 	public MainViewModel()
 	{
-		_filenameList.FilenameAdded   += FilenameList_FilenameAdded;
-		_filenameList.FilenameRemoved += FilenameList_FilenameRemoved;
-
 		AddFileCommand = new RelayCommand((object? parameter) =>
 		{
 			var openFileDialog = new Microsoft.Win32.OpenFileDialog();
@@ -45,8 +37,9 @@ public class MainViewModel
 			bool? result = openFileDialog.ShowDialog();
 			if (result == true)
 			{
-				string filename = openFileDialog.SafeFileName;
-				Filenames.Add(filename);
+				string filename = openFileDialog.FileName;
+				FileInfo fileInfo = new FileInfo(filename);
+				FilesInfo.Add(fileInfo);
 			}
 		});
 
@@ -55,38 +48,9 @@ public class MainViewModel
 			int index = System.Convert.ToInt32(parameter);
 			if (index != -1)
 			{
-				Filenames.RemoveAt(index);
+				FilesInfo.RemoveAt(index);
 			}
 		});
-	}
-
-	/// <summary>
-	/// Destructor.
-	/// </summary>
-	~MainViewModel()
-	{
-		_filenameList.FilenameAdded   -= FilenameList_FilenameAdded;
-		_filenameList.FilenameRemoved -= FilenameList_FilenameRemoved;
-	}
-
-	/// <summary>
-	/// Invoke whenever a file name is added to storage.
-	/// </summary>
-	/// <param name="sender">Event sender.</param>
-	/// <param name="filename">Event argument.</param>
-	private void FilenameList_FilenameAdded(object? sender, string filename)
-	{
-		Filenames.Add(filename);
-	}
-
-	/// <summary>
-	/// Invoke whenever a file name is removed from storage.
-	/// </summary>
-	/// <param name="sender">Event sender.</param>
-	/// <param name="index">Event argument.</param>
-	private void FilenameList_FilenameRemoved(object? sender, int index)
-	{
-		Filenames.RemoveAt(index);
 	}
 
 	/// <summary>
