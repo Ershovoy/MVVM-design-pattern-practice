@@ -1,12 +1,15 @@
-﻿using System.Globalization;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+using System.ComponentModel;
+using System.Globalization;
 using System.Linq;
+using System.Windows.Controls;
 
 namespace PalindromeFinder.Model;
 
 /// <summary>
 /// Class for check is word palindrome.
 /// </summary>
-public class Palindrome
+public class Palindrome : ObservableObject
 {
 	/// <summary>
 	/// Store word for palindrome checking.
@@ -32,12 +35,18 @@ public class Palindrome
 		set
 		{
 			_word = value;
-			_wordReverse = new string(_word.Reverse().ToArray());
+			OnPropertyChanged(nameof(Word));
+
+			string wordReverse = new string(_word.Reverse().ToArray());
+			_wordReverse = wordReverse;
+			OnPropertyChanged(nameof(WordReverse));
+
 			int result = CultureInfo.CurrentCulture.CompareInfo.Compare(Word,
 																		WordReverse,
 																		CompareOptions.IgnoreCase
 																		| CompareOptions.IgnoreSymbols);
-			_isPalindrome = result == 0;
+			bool isPalindrome = result == 0;
+			OnPropertyChanged(nameof(IsPalindrome));
 		}
 	}
 
