@@ -1,4 +1,4 @@
-<Window x:Name="window" x:Class="PalindromeFinder.MainWindow"
+﻿<Window x:Name="window" x:Class="PalindromeFinder.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -25,7 +25,18 @@
                             <TextBox Grid.Column="0"
                                      Text="{Binding Path=Word}"/>
                             <TextBox Grid.Column="1"
-                                     Text="{Binding Path=WordReverse, Mode=OneWay}"/>
+                                     Text="{Binding Path=WordReverse, Mode=OneWay}"
+                                     IsEnabled="False"/>
+                            <Grid.Style>
+                                <Style TargetType="Grid">
+                                    <Setter Property="Background" Value="Red"/>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding IsPalindrome}" Value="True">
+                                            <Setter Property="Background" Value="Green"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Grid.Style>
                         </Grid>
                     </DataTemplate>
                 </ListView.ItemTemplate>
