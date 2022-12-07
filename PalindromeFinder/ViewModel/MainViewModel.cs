@@ -36,18 +36,20 @@ public class MainViewModel
 	/// </summary>
 	public MainViewModel()
 	{
-		PalindromeList.Add(new Palindrome("Test"));
-		PalindromeList.Add(new Palindrome("Testing"));
-		PalindromeList.Add(new Palindrome("Te e t"));
-
 		AddPalindrome = new RelayCommand(() =>
 		{
 			PalindromeList.Add(new Palindrome());
 		});
 
-		AddPalindrome = new RelayCommand(() =>
+		RemovePalindrome = new RelayCommand<object>((object? obj) =>
 		{
-			PalindromeList.RemoveAt(0);
+			if (obj is int index)
+			{
+				if (index != -1)
+				{
+					PalindromeList.RemoveAt(index);
+				}
+			}
 		});
 	}
 
