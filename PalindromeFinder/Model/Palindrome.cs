@@ -45,7 +45,7 @@ public class Palindrome : ObservableObject
 																		WordReverse,
 																		CompareOptions.IgnoreCase
 																		| CompareOptions.IgnoreSymbols);
-			bool isPalindrome = result == 0;
+			_isPalindrome = result == 0;
 			OnPropertyChanged(nameof(IsPalindrome));
 		}
 	}
