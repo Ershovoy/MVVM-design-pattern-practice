@@ -1,8 +1,8 @@
 ﻿using FileExtensionFilter.Commands;
 using FileExtensionFilter.Model;
-using System;
+
 using System.Collections.ObjectModel;
-using System.Windows.Input;
+using Microsoft.Win32;
 
 namespace FileExtensionFilter.ViewModel;
 
@@ -12,14 +12,14 @@ namespace FileExtensionFilter.ViewModel;
 public class MainViewModel
 {
 	/// <summary>
-	/// Representation of filename list for displaying in window.
+	/// Representation of files info list for displaying in window.
 	/// </summary>
-	private ObservableCollection<FileInfo> _filesInfo = new();
+	private ObservableCollection<FileInfoViewModel> _filesInfo = new();
 
 	/// <summary>
-	/// Property for filename list.
+	/// Property for files info list.
 	/// </summary>
-	public ObservableCollection<FileInfo> FilesInfo
+	public ObservableCollection<FileInfoViewModel> FilesInfo
 	{
 		get => _filesInfo;
 		set => _filesInfo = value;
@@ -30,36 +30,35 @@ public class MainViewModel
 	/// </summary>
 	public MainViewModel()
 	{
-		AddFileCommand = new RelayCommand((object? parameter) =>
+		RemoveFileCommand = new RelayCommand((object? parameter) =>
 		{
-			var openFileDialog = new Microsoft.Win32.OpenFileDialog();
-
-			bool? result = openFileDialog.ShowDialog();
-			if (result == true)
+			if (parameter is FileInfoViewModel fileInfoViewModel)
 			{
-				string filename = openFileDialog.FileName;
-				FileInfo fileInfo = new FileInfo(filename);
-				FilesInfo.Add(fileInfo);
+				FilesInfo.Remove(fileInfoViewModel);
 			}
 		});
 
-		RemoveFileCommand = new RelayCommand((object? parameter) =>
+		AddFileCommand = new RelayCommand((object? parameter) =>
 		{
-			int index = System.Convert.ToInt32(parameter);
-			if (index != -1)
+			OpenFileDialog fileDialog = new();
+			bool? result = fileDialog.ShowDialog();
+			if (result is not null && result == true)
 			{
-				FilesInfo.RemoveAt(index);
+				string filename = fileDialog.FileName;
+				FileInfo fileInfo = new(filename);
+				FileInfoViewModel fileInfoViewModel = new(fileInfo, RemoveFileCommand);
+				FilesInfo.Add(fileInfoViewModel);
 			}
 		});
 	}
 
 	/// <summary>
-	/// Add file command.
+	/// Add file info command.
 	/// </summary>
 	public RelayCommand AddFileCommand { get; }
 
 	/// <summary>
-	/// Remove file command.
+	/// Remove file info command.
 	/// </summary>
 	public RelayCommand RemoveFileCommand { get; }
 }

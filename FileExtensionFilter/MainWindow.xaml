@@ -6,7 +6,8 @@
         xmlns:local="clr-namespace:FileExtensionFilter"
         xmlns:vm="clr-namespace:FileExtensionFilter.ViewModel"
         mc:Ignorable="d"
-        Title="File Extension Filter" Height="480" Width="320">
+        Title="File Extension Filter" Height="480" Width="320" 
+                                      MinHeight="320" MinWidth="320">
 
     <Window.DataContext>
         <vm:MainViewModel/>
@@ -16,45 +17,46 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
             <RowDefinition Height="{Binding Height, 
-                                            ElementName=Buttons}"/>
+                                            ElementName=Button}"/>
         </Grid.RowDefinitions>
         <StackPanel Grid.Row="0">
             <ListView Name="FilesListView"
                       ItemsSource="{Binding FilesInfo}"
-                      SelectionMode="Single"
-                      MaxHeight="{Binding ActualHeight, 
+                      MaxHeight="{Binding ActualHeight,
                                           ElementName=Grid, 
                                           Mode=OneWay}">
                 <ListView.ItemTemplate>
                     <DataTemplate>
-                        <UniformGrid Rows="1" Columns="2">
-                            <TextBlock Text="{Binding Filename}"/>
-                            <TextBlock Text="{Binding Extension}"/>
-                            <UniformGrid.Style>
-                                <Style TargetType="UniformGrid">
+                        <WrapPanel>
+                            <TextBlock Text="{Binding FileInfo.Filename}"/>
+                            <TextBlock Name="test" Text="{Binding FileInfo.Extension}"/>
+                            <Button Command="{Binding RemoveCommand, Mode=OneWay}"
+                                    CommandParameter="{Binding}" HorizontalAlignment="Right" Background="White" BorderBrush="{x:Null}">
+                                <Image Source="img/remove.png" Height="14" Width="14"></Image>
+                            </Button>
+                            <WrapPanel.Style>
+                                <Style TargetType="WrapPanel">
                                     <Setter Property="Background" Value="Red"/>
                                     <Style.Triggers>
-                                        <DataTrigger Binding="{Binding Extension}" Value=".exe">
+                                        <DataTrigger Binding="{Binding FileInfo.Extension}" Value=".exe">
                                             <Setter Property="Background" Value="White"/>
                                         </DataTrigger>
-                                        <DataTrigger Binding="{Binding Extension}" Value=".dll">
+                                        <DataTrigger Binding="{Binding FileInfo.Extension}" Value=".dll">
                                             <Setter Property="Background" Value="White"/>
                                         </DataTrigger>
                                     </Style.Triggers>
                                 </Style>
-                            </UniformGrid.Style>
-                        </UniformGrid>
+                            </WrapPanel.Style>
+                        </WrapPanel>
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
         </StackPanel>
-        <UniformGrid Name="Buttons" Grid.Row="1" Rows="1" Columns="2">
-            <Button Content="Add File" 
-                    Command="{Binding AddFileCommand}"/>
-            <Button Content="Remove File"
-                    Command="{Binding RemoveFileCommand}"
-                    CommandParameter="{Binding ElementName=FilesListView,
-                                               Path=SelectedIndex}"/>
-        </UniformGrid>
+        <Button Name="Button" Grid.Row="1"
+                Command="{Binding AddFileCommand, Mode=OneWay}"
+                HorizontalAlignment="Left" Margin="8,0,0,0"
+                Background="{x:Null}" BorderBrush="{x:Null}">
+            <Image Source="img/add.png" Height="24" Width="24"></Image>
+        </Button>
     </Grid>
 </Window>
