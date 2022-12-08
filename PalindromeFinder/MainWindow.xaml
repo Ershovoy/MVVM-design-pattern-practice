@@ -6,33 +6,51 @@
         xmlns:local="clr-namespace:PalindromeFinder"
         xmlns:vm="clr-namespace:PalindromeFinder.ViewModel"
         mc:Ignorable="d"
-        Title="MainWindow" Height="480" Width="640">
+        Title="MainWindow" Height="480" Width="640"
+                           MinHeight="240" MinWidth="320">
+
     <Window.DataContext>
         <vm:MainViewModel x:Name="MainViewModel"/>
     </Window.DataContext>
-    <Grid>
-        <StackPanel>
+
+    <Grid Name="Grid" VerticalAlignment="Top">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="{Binding Height, 
+                                            ElementName=AddButton}"/>
+        </Grid.RowDefinitions>
             <ListView Name="PalindromesListView"
-                      SelectionMode="Single"
-                      ItemsSource="{Binding PalindromeList}">
+                      Grid.Row="0"
+                      ItemsSource="{Binding PalindromeList}"
+                      MaxHeight="{Binding ActualHeight,
+                                          ElementName=Grid, 
+                                          Mode=OneWay}">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="256"/>
                                 <ColumnDefinition Width="256"/>
+                                <ColumnDefinition Width="Auto"/>
                             </Grid.ColumnDefinitions>
                             <TextBox Grid.Column="0"
-                                     Text="{Binding Path=Word}"/>
+                                     Text="{Binding Palindrome.Word}"/>
                             <TextBox Grid.Column="1"
-                                     Text="{Binding Path=WordReverse, Mode=OneWay}"
+                                     Text="{Binding Palindrome.WordReverse, Mode=OneWay}"
                                      IsEnabled="False"/>
+                            <Button Grid.Column="2"
+                                    Command="{Binding RemovePalindrome}"
+                                    CommandParameter="{Binding}"
+                                    Background="White" BorderBrush="White">
+                                <Image Source="img/remove.png"
+                                       Width="14" Height="14"/>
+                            </Button>
                             <Grid.Style>
                                 <Style TargetType="Grid">
-                                    <Setter Property="Background" Value="Red"/>
+                                    <Setter Property="Background" Value="#FFFFC0C0"/>
                                     <Style.Triggers>
-                                        <DataTrigger Binding="{Binding IsPalindrome}" Value="True">
-                                            <Setter Property="Background" Value="Green"/>
+                                        <DataTrigger Binding="{Binding Palindrome.IsPalindrome}" Value="True">
+                                            <Setter Property="Background" Value="#FFC0FFC0"/>
                                         </DataTrigger>
                                     </Style.Triggers>
                                 </Style>
@@ -41,14 +59,12 @@
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
-            <UniformGrid Name="Buttons" Rows="1" Columns="2">
-                <Button Content="Add palindrome" 
-                        Command="{Binding AddPalindrome}"/>
-                <Button Content="Remove palindrome"
-                        Command="{Binding RemovePalindrome}"
-                        CommandParameter="{Binding SelectedIndex,
-                                                   ElementName=PalindromesListView}"/>
-            </UniformGrid>
-        </StackPanel>
+        <Button Grid.Row="1" Name="AddButton"
+                    Command="{Binding AddPalindrome}"
+                    Background="{x:Null}" BorderBrush="{x:Null}"
+                    HorizontalAlignment="Left" Margin="8,0,0,0">
+            <Image Source="img/add.png" 
+                       Width="24" Height="24"/>
+        </Button>
     </Grid>
 </Window>

@@ -1,14 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Input;
-using CommunityToolkit.Mvvm;
-using CommunityToolkit.Mvvm.ComponentModel;
+﻿using PalindromeFinder.Model;
+
 using CommunityToolkit.Mvvm.Input;
-using PalindromeFinder.Model;
+using System.Windows.Input;
+using System.Collections.ObjectModel;
 
 namespace PalindromeFinder.ViewModel;
 
@@ -20,12 +14,12 @@ public class MainViewModel
 	/// <summary>
 	/// Representation of palindrome list for displaying in window.
 	/// </summary>
-	private ObservableCollection<Palindrome> _palindromeList = new();
+	private ObservableCollection<PalindromeViewModel> _palindromeList = new();
 
 	/// <summary>
 	/// Property for palindrome list.
 	/// </summary>
-	public ObservableCollection<Palindrome> PalindromeList
+	public ObservableCollection<PalindromeViewModel> PalindromeList
 	{
 		get => _palindromeList;
 		set => _palindromeList = value;
@@ -36,20 +30,18 @@ public class MainViewModel
 	/// </summary>
 	public MainViewModel()
 	{
+		RemovePalindrome = new RelayCommand<object>((object? parameter) =>
+		{
+			if(parameter is PalindromeViewModel palindromeViewModel)
+			{
+				PalindromeList.Remove(palindromeViewModel);
+			}
+		});
+		
 		AddPalindrome = new RelayCommand(() =>
 		{
-			PalindromeList.Add(new Palindrome());
-		});
-
-		RemovePalindrome = new RelayCommand<object>((object? obj) =>
-		{
-			if (obj is int index)
-			{
-				if (index != -1)
-				{
-					PalindromeList.RemoveAt(index);
-				}
-			}
+			Palindrome palindrome = new Palindrome();
+			PalindromeList.Add(new PalindromeViewModel(palindrome, RemovePalindrome));
 		});
 	}
 
@@ -59,7 +51,7 @@ public class MainViewModel
 	public ICommand AddPalindrome { get; }
 
 	/// <summary>
-	/// Remove palindrome command.
+	/// Remove cirtain palindrome command.
 	/// </summary>
 	public ICommand RemovePalindrome { get; }
 }

@@ -1,8 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
-using System.ComponentModel;
+
 using System.Globalization;
 using System.Linq;
-using System.Windows.Controls;
 
 namespace PalindromeFinder.Model;
 
@@ -37,15 +36,15 @@ public class Palindrome : ObservableObject
 			_word = value;
 			OnPropertyChanged(nameof(Word));
 
-			string wordReverse = new string(_word.Reverse().ToArray());
-			_wordReverse = wordReverse;
+			string wordReverse = new string(Word.Reverse().ToArray());
+			WordReverse = wordReverse;
 			OnPropertyChanged(nameof(WordReverse));
 
 			int result = CultureInfo.CurrentCulture.CompareInfo.Compare(Word,
 																		WordReverse,
 																		CompareOptions.IgnoreCase
 																		| CompareOptions.IgnoreSymbols);
-			_isPalindrome = result == 0;
+			IsPalindrome = result == 0;
 			OnPropertyChanged(nameof(IsPalindrome));
 		}
 	}
@@ -56,6 +55,7 @@ public class Palindrome : ObservableObject
 	public string WordReverse
 	{
 		get => _wordReverse;
+		private set => _wordReverse = value;
 	}
 
 	/// <summary>
@@ -64,6 +64,7 @@ public class Palindrome : ObservableObject
 	public bool IsPalindrome
 	{
 		get => _isPalindrome;
+		private set => _isPalindrome = value;
 	}
 
 	/// <summary>
