@@ -45,6 +45,21 @@
                                     CommandParameter="{Binding}" HorizontalAlignment="Right"
                                     Background="White" BorderBrush="{x:Null}">
                                 <Image Source="Images/clear-24.png" Height="24" Width="24"/>
+                                <Button.Style>
+                                    <Style TargetType="Button">
+                                        <Setter Property="Opacity" Value="0"/>
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType=ListViewItem, AncestorLevel=1},
+                                                       Path=IsMouseOver}" Value="True">
+                                                <Setter Property="Opacity" Value="1"/>
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType=ListViewItem, AncestorLevel=1},
+                                                       Path=IsMouseOver}" Value="False">
+                                                <Setter Property="Opacity" Value="0"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Button.Style>
                             </Button>
                             <Grid.Style>
                                 <Style TargetType="Grid">
