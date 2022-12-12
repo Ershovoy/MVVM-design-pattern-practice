@@ -32,7 +32,7 @@
                             <TextBlock Name="test" Text="{Binding FileInfo.Extension}"/>
                             <Button Command="{Binding RemoveCommand, Mode=OneWay}"
                                     CommandParameter="{Binding}" HorizontalAlignment="Right" Background="White" BorderBrush="{x:Null}">
-                                <Image Source="img/remove.png" Height="14" Width="14"></Image>
+                                <Image Source="Images/clear-24.png" Height="14" Width="14"></Image>
                             </Button>
                             <WrapPanel.Style>
                                 <Style TargetType="WrapPanel">
@@ -56,7 +56,7 @@
                 Command="{Binding AddFileCommand, Mode=OneWay}"
                 HorizontalAlignment="Left" Margin="8,0,0,0"
                 Background="{x:Null}" BorderBrush="{x:Null}">
-            <Image Source="img/add.png" Height="24" Width="24"></Image>
+            <Image Source="Images/add-24.png" Height="24" Width="24"></Image>
         </Button>
     </Grid>
 </Window>
