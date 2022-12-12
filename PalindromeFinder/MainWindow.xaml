@@ -25,7 +25,8 @@
                   ItemsSource="{Binding PalindromeList}"
                   MaxHeight="{Binding ActualHeight,
                                       ElementName=Grid,
-                                      Mode=OneWay}">
+                                      Mode=OneWay}"
+                  HorizontalContentAlignment="Stretch">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <UserControls:PalindromeView/>
