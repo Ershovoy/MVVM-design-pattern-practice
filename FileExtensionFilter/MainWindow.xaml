@@ -24,18 +24,30 @@
                       ItemsSource="{Binding FilesInfo}"
                       MaxHeight="{Binding ActualHeight,
                                           ElementName=Grid, 
-                                          Mode=OneWay}">
+                                          Mode=OneWay}"
+                      HorizontalContentAlignment="Stretch">
                 <ListView.ItemTemplate>
                     <DataTemplate>
-                        <WrapPanel>
-                            <TextBlock Text="{Binding FileInfo.Filename}"/>
-                            <TextBlock Name="test" Text="{Binding FileInfo.Extension}"/>
-                            <Button Command="{Binding RemoveCommand, Mode=OneWay}"
-                                    CommandParameter="{Binding}" HorizontalAlignment="Right" Background="White" BorderBrush="{x:Null}">
-                                <Image Source="Images/clear-24.png" Height="14" Width="14"></Image>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="auto"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="auto"/>
+                            </Grid.ColumnDefinitions>
+
+                            <TextBlock Grid.Column="0"  FontSize="14"
+                                       Text="{Binding FileInfo.Filename}" 
+                                       VerticalAlignment="Center"/>
+                            <TextBlock Grid.Column="1" FontSize="14"
+                                       Text="{Binding FileInfo.Extension}"
+                                       VerticalAlignment="Center"/>
+                            <Button Grid.Column="2" Command="{Binding RemoveCommand, Mode=OneWay}"
+                                    CommandParameter="{Binding}" HorizontalAlignment="Right"
+                                    Background="White" BorderBrush="{x:Null}">
+                                <Image Source="Images/clear-24.png" Height="24" Width="24"/>
                             </Button>
-                            <WrapPanel.Style>
-                                <Style TargetType="WrapPanel">
+                            <Grid.Style>
+                                <Style TargetType="Grid">
                                     <Setter Property="Background" Value="Red"/>
                                     <Style.Triggers>
                                         <DataTrigger Binding="{Binding FileInfo.Extension}" Value=".exe">
@@ -46,8 +58,8 @@
                                         </DataTrigger>
                                     </Style.Triggers>
                                 </Style>
-                            </WrapPanel.Style>
-                        </WrapPanel>
+                            </Grid.Style>
+                        </Grid>
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
@@ -56,7 +68,7 @@
                 Command="{Binding AddFileCommand, Mode=OneWay}"
                 HorizontalAlignment="Left" Margin="8,0,0,0"
                 Background="{x:Null}" BorderBrush="{x:Null}">
-            <Image Source="Images/add-24.png" Height="24" Width="24"></Image>
+            <Image Source="Images/add-24.png" Height="24" Width="24"/>
         </Button>
     </Grid>
 </Window>
