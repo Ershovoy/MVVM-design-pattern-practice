@@ -33,19 +33,9 @@ public class Palindrome : ObservableObject
 		get => _word;
 		set
 		{
-			_word = value;
-			OnPropertyChanged(nameof(Word));
-
-			string wordReverse = new string(Word.Reverse().ToArray());
-			WordReverse = wordReverse;
-			OnPropertyChanged(nameof(WordReverse));
-
-			int result = CultureInfo.CurrentCulture.CompareInfo.Compare(Word,
-																		WordReverse,
-																		CompareOptions.IgnoreCase
-																		| CompareOptions.IgnoreSymbols);
-			IsPalindrome = result == 0;
-			OnPropertyChanged(nameof(IsPalindrome));
+			SetProperty(ref _word, value);
+			WordReverse = new string(Word.Reverse().ToArray());
+			IsPalindrome = CheckPalindrome();
 		}
 	}
 
@@ -55,7 +45,7 @@ public class Palindrome : ObservableObject
 	public string WordReverse
 	{
 		get => _wordReverse;
-		private set => _wordReverse = value;
+		private set => SetProperty(ref _wordReverse, value);
 	}
 
 	/// <summary>
@@ -64,7 +54,7 @@ public class Palindrome : ObservableObject
 	public bool IsPalindrome
 	{
 		get => _isPalindrome;
-		private set => _isPalindrome = value;
+		private set => SetProperty(ref _isPalindrome, value);
 	}
 
 	/// <summary>
@@ -74,5 +64,20 @@ public class Palindrome : ObservableObject
 	public Palindrome(string word = "")
 	{
 		Word = word;
+	}
+
+	/// <summary>
+	/// Check is word palindrome or not.
+	/// </summary>
+	/// <param name="word">Word for palindrome checking.</param>
+	/// <returns>Return true if a word is palindrome otherwise false.</returns>
+	public bool CheckPalindrome()
+	{
+		int lexicalRelationship = CultureInfo.CurrentCulture.CompareInfo.Compare(Word,
+																		WordReverse,
+																		CompareOptions.IgnoreCase
+																		| CompareOptions.IgnoreSymbols);
+
+		return lexicalRelationship == 0;
 	}
 }

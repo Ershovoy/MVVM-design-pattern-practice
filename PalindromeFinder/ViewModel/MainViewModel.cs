@@ -14,22 +14,15 @@ public class MainViewModel
 	/// <summary>
 	/// Representation of palindrome list for displaying in window.
 	/// </summary>
-	private ObservableCollection<PalindromeViewModel> _palindromeList = new();
-
-	/// <summary>
-	/// Property for palindrome list.
-	/// </summary>
-	public ObservableCollection<PalindromeViewModel> PalindromeList
-	{
-		get => _palindromeList;
-		set => _palindromeList = value;
-	}
+	public ObservableCollection<PalindromeViewModel> PalindromeList { get; set;	}
 
 	/// <summary>
 	/// Conscructor without parameters.
 	/// </summary>
 	public MainViewModel()
 	{
+		PalindromeList = new();
+
 		RemovePalindrome = new RelayCommand<object>((object? parameter) =>
 		{
 			if(parameter is PalindromeViewModel palindromeViewModel)

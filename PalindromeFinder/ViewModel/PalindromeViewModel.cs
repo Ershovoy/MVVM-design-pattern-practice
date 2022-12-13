@@ -12,16 +12,7 @@ public class PalindromeViewModel
 	/// <summary>
 	/// Is it a alindrome or not.
 	/// </summary>
-	private Palindrome _palindrome;
-
-	/// <summary>
-	/// Property for palindrome.
-	/// </summary>
-	public Palindrome Palindrome
-	{
-		get => _palindrome;
-		set => _palindrome = value;
-	}
+	public Palindrome Palindrome { get; set; }
 
 	/// <summary>
 	/// Constructor with two parameters.
@@ -30,6 +21,8 @@ public class PalindromeViewModel
 	/// <param name="removeCommand">Remove command event.</param>
 	public PalindromeViewModel(Palindrome palindrome, ICommand removeCommand)
 	{
+		Palindrome = new();
+
 		Palindrome = palindrome;
 		RemovePalindrome = removeCommand;
 	}
