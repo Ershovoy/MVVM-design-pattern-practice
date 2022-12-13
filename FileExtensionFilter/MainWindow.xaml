@@ -43,7 +43,7 @@
                                        VerticalAlignment="Center"/>
                             <Button Grid.Column="2" Command="{Binding RemoveCommand, Mode=OneWay}"
                                     CommandParameter="{Binding}" HorizontalAlignment="Right"
-                                    Background="White" BorderBrush="{x:Null}">
+                                    Background="{x:Null}" BorderBrush="{x:Null}">
                                 <Image Source="Images/clear-24.png" Height="24" Width="24"/>
                                 <Button.Style>
                                     <Style TargetType="Button">
@@ -63,7 +63,7 @@
                             </Button>
                             <Grid.Style>
                                 <Style TargetType="Grid">
-                                    <Setter Property="Background" Value="Red"/>
+                                    <Setter Property="Background" Value="#FEE"/>
                                     <Style.Triggers>
                                         <DataTrigger Binding="{Binding FileInfo.Extension}" Value=".exe">
                                             <Setter Property="Background" Value="White"/>
