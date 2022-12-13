@@ -11,16 +11,7 @@ public class FileInfoViewModel
 	/// <summary>
 	/// Store info about file.
 	/// </summary>
-	private FileInfo _fileInfo;
-
-	/// <summary>
-	/// Property for file info.
-	/// </summary>
-	public FileInfo FileInfo 
-	{
-		get => _fileInfo;
-		set => _fileInfo = value;
-	}
+	public FileInfo FileInfo { get;	set; }
 
 	/// <summary>
 	/// Constructor with two parameters.

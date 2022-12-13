@@ -14,22 +14,15 @@ public class MainViewModel
 	/// <summary>
 	/// Representation of files info list for displaying in window.
 	/// </summary>
-	private ObservableCollection<FileInfoViewModel> _filesInfo = new();
-
-	/// <summary>
-	/// Property for files info list.
-	/// </summary>
-	public ObservableCollection<FileInfoViewModel> FilesInfo
-	{
-		get => _filesInfo;
-		set => _filesInfo = value;
-	}
+	public ObservableCollection<FileInfoViewModel> FilesInfo { get; set; }
 
 	/// <summary>
 	/// Conscructor without parameters.
 	/// </summary>
 	public MainViewModel()
 	{
+		FilesInfo = new();
+
 		RemoveFileCommand = new RelayCommand((object? parameter) =>
 		{
 			if (parameter is FileInfoViewModel fileInfoViewModel)
@@ -40,13 +33,13 @@ public class MainViewModel
 
 		AddFileCommand = new RelayCommand((object? parameter) =>
 		{
-			OpenFileDialog fileDialog = new();
+			var fileDialog = new OpenFileDialog();
 			bool? result = fileDialog.ShowDialog();
 			if (result is not null && result == true)
 			{
 				string filename = fileDialog.FileName;
-				FileInfo fileInfo = new(filename);
-				FileInfoViewModel fileInfoViewModel = new(fileInfo, RemoveFileCommand);
+				var fileInfo = new FileInfo(filename);
+				var fileInfoViewModel = new FileInfoViewModel(fileInfo, RemoveFileCommand);
 				FilesInfo.Add(fileInfoViewModel);
 			}
 		});
