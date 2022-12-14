@@ -7,16 +7,7 @@
              mc:Ignorable="d">
 
     <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="Auto"/>
-        </Grid.ColumnDefinitions>
-
-        <TextBox Grid.Column="0" FontSize="14"
-                 Text="{Binding Palindrome.Word, UpdateSourceTrigger=PropertyChanged}"
-                 VerticalContentAlignment="Center"/>
-        <TextBox Grid.Column="1" FontSize="14"
+        <TextBox FontSize="14" Height="28"
                  Text="{Binding Palindrome.WordReverse, Mode=OneWay}"
                  VerticalContentAlignment="Center" IsEnabled="False" >
             <TextBox.Style>
@@ -30,27 +21,5 @@
                 </Style>
             </TextBox.Style>
         </TextBox>
-        <Button Grid.Column="2"
-                Command="{Binding RemovePalindrome}"
-                CommandParameter="{Binding}"
-                Background="{x:Null}" BorderBrush="{x:Null}">
-            <Image Source="../Images/clear-24.png"
-                   Width="24" Height="24"/>
-            <Button.Style>
-                <Style TargetType="Button">
-                    <Setter Property="Opacity" Value="0"/>
-                    <Style.Triggers>
-                        <DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType=ListViewItem, AncestorLevel=1},
-                                                       Path=IsMouseOver}" Value="True">
-                            <Setter Property="Opacity" Value="1"/>
-                        </DataTrigger>
-                        <DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType=ListViewItem, AncestorLevel=1},
-                                                       Path=IsMouseOver}" Value="False">
-                            <Setter Property="Opacity" Value="0"/>
-                        </DataTrigger>
-                    </Style.Triggers>
-                </Style>
-            </Button.Style>
-        </Button>
     </Grid>
 </UserControl>

@@ -20,19 +20,37 @@
             <RowDefinition Height="{Binding Height, 
                                             ElementName=AddButton}"/>
         </Grid.RowDefinitions>
-        <ListView Name="PalindromesListView"
-                  Grid.Row="0"
-                  ItemsSource="{Binding PalindromeList}"
-                  MaxHeight="{Binding ActualHeight,
-                                      ElementName=Grid,
-                                      Mode=OneWay}"
-                  HorizontalContentAlignment="Stretch">
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <UserControls:PalindromeView/>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
+
+        <UniformGrid Grid.Row="0"
+                     Rows="1" Columns="2">
+            <Border Margin="4, 0, 2, 4">
+                <ListView ItemsSource="{Binding PalindromeList}"
+                          MaxHeight="{Binding ActualHeight,
+                                              ElementName=Grid,
+                                              Mode=OneWay}"
+                          HorizontalContentAlignment="Stretch">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <UserControls:PalindromeControl/>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </Border>
+            <Border Margin="2, 0, 4, 4">
+                <ListView ItemsSource="{Binding PalindromeList}"
+                          MaxHeight="{Binding ActualHeight,
+                                              ElementName=Grid,
+                                              Mode=OneWay}"
+                          HorizontalContentAlignment="Stretch">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <UserControls:PalindromeView/>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </Border>
+        </UniformGrid>
+
         <Button Grid.Row="1" Name="AddButton"
                 Command="{Binding AddPalindrome}"
                 Background="{x:Null}" BorderBrush="{x:Null}"
